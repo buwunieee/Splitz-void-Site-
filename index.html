@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Splitz-void</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    h1 {
+      margin-bottom: 40px;
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .site-button {
+      padding: 15px 40px;
+      font-size: 18px;
+      border: 2px solid white;
+      background-color: transparent;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .site-button:hover {
+      background-color: white;
+      color: black;
+    }
+
+    .message {
+      margin-top: 20px;
+      font-size: 18px;
+      min-height: 24px;
+    }
+
+    .captcha-container {
+      margin-top: 20px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .captcha-container label {
+      margin-left: 8px;
+      font-size: 14px;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      font-size: 12px;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+  <h1>Splitz-void</h1>
+  <div class="button-container">
+    <button class="site-button" data-site="Alura">Alura</button>
+    <button class="site-button" data-site="Tarefa SP">Tarefa SP</button>
+    <button class="site-button" data-site="Matific">Matific</button>
+  </div>
+
+  <div class="captcha-container" id="captchaBox">
+    <p>Faz o captcha mn</p>
+    <label><input type="checkbox" id="captchaCheck"> Não sou um robô</label>
+  </div>
+
+  <div class="message" id="messageBox"></div>
+
+  <div class="footer">@buwunieee</div>
+
+  <script>
+    const buttons = document.querySelectorAll(".site-button");
+    const captchaBox = document.getElementById("captchaBox");
+    const captchaCheck = document.getElementById("captchaCheck");
+    const messageBox = document.getElementById("messageBox");
+
+    let currentButton = null;
+    let captchaPassed = false;
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        if (!captchaPassed) {
+          captchaBox.style.display = "flex";
+          messageBox.textContent = "";
+          currentButton = button;
+        } else {
+          messageBox.textContent = "Carregando";
+          setTimeout(() => {
+            messageBox.textContent = "Fazendo lição";
+          }, 2000);
+        }
+      });
+    });
+
+    captchaCheck.addEventListener("change", () => {
+      if (captchaCheck.checked) {
+        captchaPassed = true;
+        messageBox.textContent = "";
+      }
+    });
+  </script>
+</body>
+</html>
